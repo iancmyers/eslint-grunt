@@ -1,0 +1,49 @@
+{
+  "name": "eslint-grunt",
+  "description": "Validate files with ESLint.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/iancmyers/eslint-grunt",
+  "author": {
+    "name": "Ian Christian Myers",
+    "email": "ian@iancmyers.com",
+    "url": "http://iancmyers.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/iancmyers/eslint-grunt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iancmyers/eslint-grunt/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/iancmyers/eslint-grunt/blob/master/LICENSE"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "eslint": "git://github.com/iancmyers/eslint.git#7870a385df017ee24120dd66dcb5adbf9f956429"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-contrib-nodeunit": "~0.2.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
+  },
+  "keywords": [
+    "gruntplugin",
+    "grunt",
+    "eslint",
+    "eslint-grunt",
+    "jshint",
+    "esprima"
+  ]
+}

@@ -5,10 +5,7 @@ module.exports = function (grunt) {
       all: ['Gruntfile.js', 'tasks/**/*.js'],
 
       options: {
-        reporter: "compact",
-        config: "conf/eslint.json",
-        rulesDir: "rules",
-        force: false
+        config: "conf/eslint.json"
       }
     },
 

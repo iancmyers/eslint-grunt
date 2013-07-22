@@ -4,7 +4,11 @@
 
 ## About ESLint
 
-[ESLint](https://github.com/nzakas/eslint) is a tool for identifying and reporting on patterns in JavaScript, often for the purposes of validation. Rules a pluggable, so you can create your own custom rules to validate against.
+[ESLint](https://github.com/nzakas/eslint) is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. In many ways, it is similar to JSLint and JSHint with a few exceptions:
+
+* ESLint uses Esprima for JavaScript parsing.
+* ESLint uses an AST to evaluate patterns in code.
+* ESLint is completely pluggable, every single rule is a plugin and you can add more at runtime.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.0`

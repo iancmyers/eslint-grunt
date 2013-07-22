@@ -30,3 +30,75 @@ The eslint task can be run with the `grunt eslint` command. Files to run through
 **rulesDir** (_optional_, _String_): The path to the directory containing your custom rules. These rules will be made available in addition to the rules that ship with ESLint core. You can take a look at the [source for the ESLint core rules](https://github.com/nzakas/eslint/tree/master/lib/rules) as an example for how to write your own, or read the ESLint [working with rules guide](https://github.com/nzakas/eslint/blob/master/docs/Working-with-Rules.md).
 
 **force** (_optional_, _Boolean_): When force is set to `true` errors will be reported, but they will not fail the task.
+
+## Examples
+
+Simplest configuration. Lint all of the JavaScript files in the project:
+
+```js
+module.exports = function (grunt) {
+
+  grunt.config.init({
+    eslint: {
+      all: ['**/*.js']
+    }
+  });
+
+  grunt.loadNpmTasks('eslint-grunt');
+};
+```
+
+Lint all of the JavaScript files in the project using the the rules configuration at `conf/eslint.json` and the custom rules in the `conf/rules` directory:
+
+```js
+module.exports = function (grunt) {
+
+  grunt.config.init({
+    eslint: {
+      all: ['**/*.js'],
+      options: {
+        config: "conf/eslint.json",
+        rulesDir: "conf/rules"
+      }
+    }
+  });
+
+  grunt.loadNpmTasks('eslint-grunt');
+};
+```
+
+Load custom rules from `conf/rules`, lint all of the server-side JavaScript using the rules specified in `conf/eslint-node.json` and lint all of the client-side JavaScript using the rules specified in `conf/eslint-browser.json`:
+
+```js
+module.exports = function (grunt) {
+
+  grunt.config.init({
+    eslint: {
+      options: {
+        rulesDir: "conf/rules"
+      },
+
+      nodeFiles: {
+        files: {
+          src: ['server/**/*.js']
+        },
+        options: {
+          config: "conf/eslint-node.json"
+        }
+      },
+
+      browserFiles: {
+        files: {
+          src: ['client/**/*.js']
+        },
+        options: {
+          config: "conf/eslint-browser.json"
+        }
+      }
+    }
+  });
+
+  grunt.loadNpmTasks('eslint-grunt');
+};
+```
+

@@ -31,7 +31,7 @@ The eslint task can be run with the `grunt eslint` command. Files to run through
 
 * **config** _String_: This should be a path to your ESLint config JSON file. This must be a valid ESLint config JSON. If a config is not specified, the default file will be used. Take a look at the [default ESLint config JSON](https://github.com/nzakas/eslint/blob/master/conf/eslint.json) and the [ESLint rules documentation](https://github.com/nzakas/eslint/blob/master/docs/Rules.md).
 
-* **rulesDir** _String_: The path to the directory containing your custom rules. These rules will be made available in addition to the rules that ship with ESLint core. You can take a look at the [source for the ESLint core rules](https://github.com/nzakas/eslint/tree/master/lib/rules) as an example for how to write your own, or read the ESLint [working with rules guide](https://github.com/nzakas/eslint/blob/master/docs/Working-with-Rules.md).
+* **rulesDir** _String_: The path to the directory containing your custom rules. These rules will be made available in addition to the rules that ship with ESLint core. You can take a look at the [source for the ESLint core rules](https://github.com/nzakas/eslint/tree/master/lib/rules) as an example for how to write your own, or read the ESLint [working with rules guide](https://github.com/nzakas/eslint/blob/master/docs/Working-with-Rules.md). _You must enable custom rules in your config file in the same way that ESLint core rules are enabled_. The rule key will be the same as your rule filename.
 
 * **force** _Boolean_: When force is set to `true` errors will be reported, but they will not fail the task.
 

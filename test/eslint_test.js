@@ -1,17 +1,28 @@
-var grunt = require('grunt'),
+var hooker = require('grunt').util.hooker,
     path = require('path'),
-    eslint = require('../tasks/lib/eslint').init(grunt),
+    eslint = require('../tasks/lib/eslint'),
     fixtures = path.join(__dirname, 'fixtures');
 
+var DEFAULTS = {
+  config: path.relative(process.cwd(), path.join(__dirname, "../conf/eslint.json")),
+};
+
 exports.eslint = {
+  setUp: function (done) {
+    hooker.hook(console, 'log', { pre: function () { return hooker.preempt(); } });
+    done();
+  },
+
+  tearDown: function (done) {
+    hooker.unhook(console, 'log');
+    done();
+  },
+
   pass: function (test) {
     test.expect(1);
 
     var files = [path.join(fixtures, 'pass.js')];
-
-    eslint.lint(files, {}, function (results) {
-      test.ok(results === "\n0 problems");
-    });
+    test.equal(eslint.lint(files, DEFAULTS), 0);
 
     test.done();
   },
@@ -20,10 +31,7 @@ exports.eslint = {
     test.expect(1);
 
     var files = [path.join(fixtures, 'fail-core.js')];
-
-    eslint.lint(files, {}, function (results) {
-      test.ok(results != "\n0 problems");
-    });
+    test.equal(eslint.lint(files, DEFAULTS), 1);
 
     test.done();
   },
@@ -32,19 +40,10 @@ exports.eslint = {
     test.expect(2);
 
     var files = [path.join(fixtures, 'fail-custom-rule.js')];
+    test.equal(eslint.lint(files, DEFAULTS), 0);
 
-    eslint.lint(files, {}, function (results) {
-      test.ok(results === "\n0 problems");
-    });
-
-    var options = {
-      rulesDir: 'test/rules',
-      config: 'test/conf/custom.json'
-    };
-
-    eslint.lint(files, options, function (results) {
-      test.ok(results.match("He who shall not be named must remain unnamed."));
-    });
+    var options = { rulesDir: 'test/rules', config: 'test/conf/custom.json' };
+    test.equal(eslint.lint(files, options), 1);
 
     test.done();
   },
@@ -53,20 +52,27 @@ exports.eslint = {
     test.expect(2);
 
     var files = [path.join(fixtures, 'fail-core-modified.js')];
+    test.equal(eslint.lint(files, DEFAULTS), 0);
 
-    eslint.lint(files, {}, function (results) {
-      test.ok(results === "\n0 problems");
-    });
-
-    var options = {
-      config: 'test/conf/modified.json'
-    };
-
-    eslint.lint(files, options, function (results) {
-      test.ok(results != "\n0 problems");
-    });
+    var options = { config: 'test/conf/modified.json' };
+    test.equal(eslint.lint(files, options), 1);
 
     test.done();
+  },
+
+  formatter: function (test) {
+    test.expect(2);
+    var options,
+        files = [path.join(fixtures, 'fail-core-modified.js')];
+
+    options = { config: DEFAULTS.config, formatter: 'checkstyle' };
+    test.equal(eslint.lint(files, DEFAULTS), 0);
+
+    options = { config: 'test/conf/modified.json', formatter: 'checkstyle' };
+    test.equal(eslint.lint(files, options), 1);
+
+    test.done();
+
   }
 
 };

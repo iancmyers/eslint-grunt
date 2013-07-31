@@ -1,23 +1,18 @@
+var eslint = require("./lib/eslint"),
+    path = require("path");
+
+var DEFAULTS = {
+  config: path.relative(process.cwd(), path.join(__dirname, "conf/eslint.json")),
+  formatter: path.relative(process.cwd(), path.join(__dirname, "formatters/grunt.js"))
+};
+
 module.exports = function (grunt) {
 
-  var eslint = require('./lib/eslint').init(grunt);
+  grunt.registerMultiTask("eslint", "Validate files with ESLint.", function() {
+    var options = this.options(DEFAULTS),
+        files = this.filesSrc;
 
-  grunt.registerMultiTask('eslint', 'Validate files with ESLint.', function() {
-    var options = this.options({ force: false }),
-        passed = true,
-        force = options.force;
-
-    var done = this.async();
-
-    delete options.force;
-
-    eslint.lint(this.filesSrc, options, function (results) {
-      if (!results.match(/^(\s+)?0 problems/)) {
-        passed = force;
-      }
-      
-      done(passed);
-    });
+    return eslint.lint(files, options) === 0;
   });
 
 };

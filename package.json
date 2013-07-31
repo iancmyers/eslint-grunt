@@ -29,7 +29,8 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "eslint": "0.0.7"
+    "eslint": "git://github.com/nzakas/eslint.git#732daf1569b8bac5abc3ade6778dc28588d40b96",
+    "colors": "~0.6.1"
   },
   "devDependencies": {
     "grunt": "~0.4.0",

@@ -29,13 +29,15 @@ grunt.loadNpmTasks('eslint-grunt');
 
 The eslint task can be run with the `grunt eslint` command. Files to run through ESLint and options may be specified according to the grunt [configuring tasks guide](http://gruntjs.com/configuring-tasks). There are a few options that you may pass to the eslint task, _all of which are optional_:
 
-* **config** _String_: This should be a path to your ESLint config JSON file. This must be a valid ESLint config JSON. If a config is not specified, the default file will be used. Take a look at the [default ESLint config JSON](https://github.com/nzakas/eslint/blob/master/conf/eslint.json) and the [ESLint rules documentation](https://github.com/nzakas/eslint/blob/master/docs/Rules.md).
+* **config** _String_: This should be a path to your ESLint config JSON file. This must be a valid ESLint config JSON. Note that `eslint-grunt` will respect the reporting level in your ESLint config JSON (1 is warn, 2 is error). Warn will let the task exit successfully. Error will fail the task. If a config is not specified, the default JSON file will be used. Take a look at the [default ESLint config JSON](https://github.com/iancmyers/eslint-grunt/blob/master/tasks/conf/eslint.json) and the [ESLint rules documentation](https://github.com/nzakas/eslint/blob/master/docs/Rules.md).
 
 * **rulesDir** _String_: The path to the directory containing your custom rules. These rules will be made available in addition to the rules that ship with ESLint core. You can take a look at the [source for the ESLint core rules](https://github.com/nzakas/eslint/tree/master/lib/rules) as an example for how to write your own, or read the ESLint [working with rules guide](https://github.com/nzakas/eslint/blob/master/docs/Working-with-Rules.md). _You must enable custom rules in your config file in the same way that ESLint core rules are enabled_. The rule key will be the same as your rule filename.
 
-* **force** _Boolean_: When force is set to `true` errors will be reported, but they will not fail the task.
+* **formatter** _String_: The name of a built-in formatter or the path to a custom ESLint formatter. By default a variation on ESLint's default formatter will be used.
 
 ## Examples
+
+### Task Configurations
 
 Simplest configuration. Lint all of the JavaScript files in the project:
 
@@ -105,4 +107,66 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('eslint-grunt');
 };
 ```
+### ESLint Configuration JSON
 
+All rules below that are set to `2` will report an error, meaning the `eslint` grunt task will fail. All rules that are set to `1` will report a warning, but will not cause the task to fail. All rules that are set to `0` are off.
+
+If you do not want to ever fail the task, set all the rules you want on to `1`. Similarly, if you'd like to always fail the task when encountering a problem, set all the rules you want on to `2`.
+
+```js
+{
+    "rules": {
+
+        "no-alert": 2,
+        "no-caller": 2,
+        "no-bitwise": 0,
+        "no-console": 2,
+        "no-dangle": 1,
+        "no-debugger": 2,
+        "no-empty": 2,
+        "no-eval": 1,
+        "no-ex-assign": 2,
+        "no-floating-decimal": 0,
+        "no-implied-eval": 2,
+        "no-with": 2,
+        "no-fallthrough": 2,
+        "no-unreachable": 2,
+        "no-undef-init": 2,
+        "no-octal": 2,
+        "no-obj-calls": 2,
+        "no-new-wrappers": 2,
+        "no-new": 2,
+        "no-new-func": 2,
+        "no-native-reassign": 2,
+        "no-plusplus": 0,
+        "no-delete-var": 2,
+        "no-return-assign": 2,
+        "no-new-array": 2,
+        "no-new-object": 2,
+        "no-label-var": 2,
+        "no-ternary": 0,
+        "no-self-compare": 0,
+
+        "smarter-eqeqeq": 0,
+        "brace-style": 1,
+        "camelcase": 2,
+        "curly": 2,
+        "dot-notation": 1,
+        "eqeqeq": 1,
+        "new-parens": 2,
+        "guard-for-in": 0,
+        "radix": 0,
+        "new-cap": 2,
+        "quote-props": 0,
+        "semi": 2,
+        "use-isnan": 2,
+        "quotes": [1, "double"],
+        "max-params": [0, 3],
+        "max-statements": [0, 10],
+        "regex-spaces": 2,
+        "complexity": [0, 11],
+        "wrap-iife": 1,
+        "no-multi-str": 2
+    }
+}
+```

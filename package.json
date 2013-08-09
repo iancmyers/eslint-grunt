@@ -29,7 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "eslint": "git://github.com/nzakas/eslint.git#732daf1569b8bac5abc3ade6778dc28588d40b96",
+    "eslint": "git://github.com/iancmyers/eslint.git#fix-load-rules-dir",
     "colors": "~0.6.1"
   },
   "devDependencies": {

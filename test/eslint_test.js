@@ -36,6 +36,16 @@ exports.eslint = {
     test.done();
   },
 
+  force: function (test) {
+    test.expect(1);
+
+    var files = [path.join(fixtures, 'fail-core.js')];
+    var options = { config: DEFAULTS.config, force: true }
+    test.equal(eslint.lint(files, options), 0);
+
+    test.done();
+  },
+
   custom: function (test) {
     test.expect(2);
 

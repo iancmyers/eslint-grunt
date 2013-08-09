@@ -35,6 +35,8 @@ The eslint task can be run with the `grunt eslint` command. Files to run through
 
 * **formatter** _String_: The name of a built-in formatter or the path to a custom ESLint formatter. By default a variation on ESLint's default formatter will be used.
 
+* **force** _Boolean_: When set to `true`, this option will force the task to pass, even if ESLint encounters errors (rules set to 2). This is useful if you'd like to use the same config for development and testing.
+
 ## Examples
 
 ### Task Configurations

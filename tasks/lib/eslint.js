@@ -16,6 +16,10 @@ module.exports = {
       args.push("--rulesdir", options.rulesDir);
     }
 
+    if (options.force) {
+      return 0;
+    }
+
     return eslint.cli.execute(args.concat(files));
   }
 };

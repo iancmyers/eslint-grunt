@@ -2,11 +2,7 @@ module.exports = function (grunt) {
 
   grunt.config.init({
     eslint: {
-      all: ["Gruntfile.js", "tasks/**/*.js"],
-
-      options: {
-        config: "conf/eslint.json"
-      }
+      all: ["Gruntfile.js", "tasks/**/*.js"]
     },
 
     nodeunit: {

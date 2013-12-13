@@ -37,6 +37,8 @@ The eslint task can be run with the `grunt eslint` command. Files to run through
 
 * **force** _Boolean_: When set to `true`, this option will force the task to pass, even if ESLint encounters errors (rules set to 2). This is useful if you'd like to use the same config for development and testing.
 
+In addition, `eslint-grunt` will also respect options set in your `.eslintrc` file.
+
 ## Examples
 
 ### Task Configurations

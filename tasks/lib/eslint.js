@@ -2,7 +2,9 @@ var eslint = require("eslint");
 
 module.exports = {
   lint: function (files, options) {
-    var args = [];
+    var args = ["node", "eslint"];
+
+    options = options || {};
 
     if (options.config) {
       args.push("-c", options.config);

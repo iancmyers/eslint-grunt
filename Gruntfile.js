@@ -5,15 +5,19 @@ module.exports = function (grunt) {
       all: ["Gruntfile.js", "tasks/**/*.js"]
     },
 
-    nodeunit: {
-      tests: ["test/*_test.js"]
+    mochacli: {
+      options: {
+        reporter: "dot",
+        ui: "tdd"
+      },
+      all: ["test/eslint_test.js"]
     }
   });
 
   grunt.loadTasks("tasks");
 
-  grunt.loadNpmTasks("grunt-contrib-nodeunit");
+  grunt.loadNpmTasks("grunt-mocha-cli");
 
-  grunt.registerTask("test", ["eslint", "nodeunit"]);
+  grunt.registerTask("test", ["eslint", "mochacli"]);
   grunt.registerTask("default", ["test"]);
 };

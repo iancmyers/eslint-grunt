@@ -1,88 +1,59 @@
 var hooker = require('grunt').util.hooker,
     path = require('path'),
     eslint = require('../tasks/lib/eslint'),
+    assert = require('assert')
     fixtures = path.join(__dirname, 'fixtures');
 
-var DEFAULTS = {
-  config: path.relative(process.cwd(), path.join(__dirname, "../conf/eslint.json")),
-};
+suite('eslint-grunt', function () {
 
-exports.eslint = {
-  setUp: function (done) {
+  before(function (done) {
     hooker.hook(console, 'log', { pre: function () { return hooker.preempt(); } });
     done();
-  },
+  });
 
-  tearDown: function (done) {
+  after(function (done) {
     hooker.unhook(console, 'log');
     done();
-  },
+  })
 
-  pass: function (test) {
-    test.expect(1);
-
+  test('pass', function () {
     var files = [path.join(fixtures, 'pass.js')];
-    test.equal(eslint.lint(files, DEFAULTS), 0);
+    assert.equal(eslint.lint(files), 0);
+  });
 
-    test.done();
-  },
-
-  core: function (test) {
-    test.expect(1);
-
+  test('core', function () {
     var files = [path.join(fixtures, 'fail-core.js')];
-    test.equal(eslint.lint(files, DEFAULTS), 1);
+    assert.equal(eslint.lint(files), 1);
+  });
 
-    test.done();
-  },
-
-  force: function (test) {
-    test.expect(1);
-
+  test('force', function () {
     var files = [path.join(fixtures, 'fail-core.js')];
-    var options = { config: DEFAULTS.config, force: true }
-    test.equal(eslint.lint(files, options), 0);
+    var options = { force: true };
+    assert.equal(eslint.lint(files, options), 0);
+  });
 
-    test.done();
-  },
-
-  custom: function (test) {
-    test.expect(2);
-
+  test('custom', function () {
     var files = [path.join(fixtures, 'fail-custom-rule.js')];
-    test.equal(eslint.lint(files, DEFAULTS), 0);
+    assert.equal(eslint.lint(files), 0);
 
     var options = { rulesDir: 'test/rules', config: 'test/conf/custom.json' };
-    test.equal(eslint.lint(files, options), 1);
+    assert.equal(eslint.lint(files, options), 1);
+  });
 
-    test.done();
-  },
-
-  modified: function (test) {
-    test.expect(2);
-
+  test('modified', function () {
     var files = [path.join(fixtures, 'fail-core-modified.js')];
-    test.equal(eslint.lint(files, DEFAULTS), 0);
+    assert.equal(eslint.lint(files), 0);
 
     var options = { config: 'test/conf/modified.json' };
-    test.equal(eslint.lint(files, options), 1);
+    assert.equal(eslint.lint(files, options), 1);
+  });
 
-    test.done();
-  },
-
-  formatter: function (test) {
-    test.expect(2);
+  test('formatter', function () {
     var options,
         files = [path.join(fixtures, 'fail-core-modified.js')];
 
-    options = { config: DEFAULTS.config, formatter: 'checkstyle' };
-    test.equal(eslint.lint(files, DEFAULTS), 0);
-
     options = { config: 'test/conf/modified.json', formatter: 'checkstyle' };
-    test.equal(eslint.lint(files, options), 1);
+    assert.equal(eslint.lint(files, options), 1);
+  });
 
-    test.done();
-
-  }
-
-};
+});

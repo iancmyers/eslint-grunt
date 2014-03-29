@@ -1,7 +1,7 @@
 {
   "name": "eslint-grunt",
   "description": "Validate files with ESLint – a tool for identifying and reporting on patterns in JavaScript, with pluggable rules.",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "homepage": "https://github.com/iancmyers/eslint-grunt",
   "author": {
     "name": "Ian Christian Myers",

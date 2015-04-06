@@ -1,8 +1,8 @@
-var colors = require("colors");
+require("colors");
 
-function getMessageType(message, rules) {
+function getMessageType(message) {
 
-    if (message.fatal || rules[message.ruleId] === 2) {
+    if (message.fatal) {
         return "Error";
     } else {
         return "Warning";
@@ -10,11 +10,10 @@ function getMessageType(message, rules) {
 
 }
 
-module.exports = function(results, config) {
+module.exports = function(results) {
 
     var output = "",
-        total = 0,
-        rules = config.rules || {};
+        total = 0;
 
     results.forEach(function(result) {
 
@@ -24,8 +23,8 @@ module.exports = function(results, config) {
         messages.forEach(function(message) {
 
             output += ">> ".red + result.filePath + ": ";
-            output += "line " + (message.line || 0) +  ", col " +
-                (message.column || 0) + ", " + getMessageType(message, rules);
+            output += "line " + (message.line || 0) + ", col " +
+                (message.column || 0) + ", " + getMessageType(message);
             output += " - " + message.message + "\n";
         });
 

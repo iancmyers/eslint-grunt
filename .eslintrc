@@ -6,6 +6,7 @@
     "rules": {
         "brace-style": 2,
         "consistent-this": [0, "self"],
-        "strict": 0
+        "strict": 0,
+        "eol-last": false
     }
 }
